@@ -38,6 +38,8 @@ jobs:
           python3-bcrypt \
           python3-coloredlogs \
           tree
+      - name: Sync metadata
+        run: tree metadata/
       - name: Generate metadata
         run: ./protonwire/scripts/generate-server-metadata --output ./metadata
         env:
@@ -45,7 +47,6 @@ jobs:
           PROTON_PASSWORD: ${{ secrets.PROTON_PASSWORD }}
       - name: Sync metadata
         run: |
-          tree ./metadata/
           rsync \
             --archive \
             --human-readable \
